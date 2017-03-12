@@ -10,7 +10,7 @@
 Relational database support for Ninja
 =====================================
 
-- Continuous integration: [![Build Status](https://api.travis-ci.org/raphaelbauer/ninja-db.svg)](https://travis-ci.org/raphaelbauer/ninja-db)
+- Continuous integration: [![Build Status](https://api.travis-ci.org/ninjaframework/ninja-db.svg)](https://travis-ci.org/ninjaframework/ninja-db)
 
 
 Sane setup to configure multiple datasoures via Hakari, run migrations and use
