@@ -7,8 +7,8 @@
 
 
 
-Relational database support for Ninja
-=====================================
+Finest relational database support for Ninja
+============================================
 
 - Continuous integration: [![Build Status](https://api.travis-ci.org/ninjaframework/ninja-db.svg)](https://travis-ci.org/ninjaframework/ninja-db)
 
