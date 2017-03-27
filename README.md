@@ -13,9 +13,7 @@ Finest relational database support for Ninja
 - Continuous integration: [![Build Status](https://api.travis-ci.org/ninjaframework/ninja-db.svg)](https://travis-ci.org/ninjaframework/ninja-db)
 
 
-Sane setup to configure multiple datasoures via Hakari, run migrations and use
+Sane setup to configure multiple datasoures via Hikari, run migrations and use
 a range of cool tools like JDBI and more.
 
 Work in progress. Documentation coming...
-
-And - this whole stuff will soon live in the ninjaframework repository...
