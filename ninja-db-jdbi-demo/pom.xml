@@ -75,23 +75,6 @@
                 </configuration>
             </plugin>
 
-          
-           
-            <!-- Tell the surefire plugin (responsible for test) -->
-            <!-- not to use system classloader. Otherwise Ebean model registration -->
-            <!-- does not work -->
-            <!-- http://www.avaje.org/ebean/maven.html -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.16</version>
-                <configuration>
-                    <useSystemClassLoader>false</useSystemClassLoader>
-                </configuration>
-            </plugin>
-
-
-
         </plugins>
 
         <resources>
