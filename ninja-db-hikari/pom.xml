@@ -1,6 +1,6 @@
 <!--
 
-    Copyright (C) 2017 the original author or authors.
+    Copyright (C) 2017-2018 the original author or authors.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -34,7 +34,7 @@
         <dependency>
             <groupId>com.zaxxer</groupId>
             <artifactId>HikariCP</artifactId>
-            <version>2.6.0</version>
+            <version>3.1.0</version>
         </dependency>
      
         <dependency>

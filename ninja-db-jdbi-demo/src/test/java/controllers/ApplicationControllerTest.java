@@ -14,23 +14,19 @@
  * limitations under the License.
  */
 
-package ninja.jdbc;
+package controllers;
 
-import com.google.common.collect.ImmutableList;
-import java.util.List;
+import ninja.NinjaTest;
+import org.hamcrest.CoreMatchers;
+import org.junit.Assert;
+import org.junit.Test;
 
-
-public class NinjaDatasourceConfigImpl implements NinjaDatasourceConfigs {
+public class ApplicationControllerTest extends NinjaTest {
     
-    private final List<NinjaDatasourceConfig> ninjaDatasourceConfigs;
-    
-    public NinjaDatasourceConfigImpl(List<NinjaDatasourceConfig> datasources) {
-        this.ninjaDatasourceConfigs = ImmutableList.copyOf(datasources);
-    }
-
-    @Override
-    public List<NinjaDatasourceConfig> getDatasources() {
-        return ninjaDatasourceConfigs;
+    @Test
+    public void testThatItWorks() {
+        String result = ninjaTestBrowser.makeRequest(getServerAddress());
+        Assert.assertThat(result, CoreMatchers.containsString("Hi. This is a simple guestbook."));
     }
     
 }

@@ -14,23 +14,17 @@
  * limitations under the License.
  */
 
-package ninja.jdbc;
+package ninja.db;
 
-import com.google.common.collect.ImmutableList;
-import java.util.List;
+import ninja.FreshNinjaServerTester;
+import ninja.NinjaTest;
+import org.junit.BeforeClass;
 
+public class NinjaWithPostgresTest extends NinjaTest {
 
-public class NinjaDatasourceConfigImpl implements NinjaDatasourceConfigs {
-    
-    private final List<NinjaDatasourceConfig> ninjaDatasourceConfigs;
-    
-    public NinjaDatasourceConfigImpl(List<NinjaDatasourceConfig> datasources) {
-        this.ninjaDatasourceConfigs = ImmutableList.copyOf(datasources);
+    public void test() {
+
+        //ninjaTestBrowser.makeRequest(url)
     }
 
-    @Override
-    public List<NinjaDatasourceConfig> getDatasources() {
-        return ninjaDatasourceConfigs;
-    }
-    
 }

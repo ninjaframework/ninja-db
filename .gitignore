@@ -13,9 +13,4 @@ target
 
 # no h2 databases
 *.db
-/ninja-db-esql-demo/nbproject/
-/ninja-db-sqlify-demo/nbproject/
-/ninja-db-jdbc/nbproject/
-/ninja-db-datasources/nbproject/
-/ninja-db-core/nbproject/
-/ninja-db-hikari/nbproject/
+nbproject
