@@ -25,7 +25,7 @@
     <parent>
         <groupId>org.ninjaframework</groupId>
         <artifactId>ninja-db</artifactId>
-        <version>1.0.0-beta6</version>
+        <version>1.0.0-beta7-SNAPSHOT</version>
     </parent>
 
     <dependencies>
@@ -39,7 +39,7 @@
         <dependency>
             <groupId>org.ninjaframework</groupId>
             <artifactId>ninja-db-core</artifactId>
-            <version>1.0.0-beta6</version>
+            <version>1.0.0-beta7-SNAPSHOT</version>
         </dependency>
         
         <dependency>
