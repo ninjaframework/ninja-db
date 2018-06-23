@@ -46,6 +46,7 @@
         <module>ninja-db-flyway</module>
         <module>ninja-db-jdbi-demo</module>
         <module>ninja-db-jdbi</module>
+        <module>ninja-db-sqlify</module>
     </modules>
 
     <!-- pin encoding to utf-8 -->
