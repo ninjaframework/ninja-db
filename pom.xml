@@ -22,7 +22,7 @@
     <groupId>org.ninjaframework</groupId>
     <artifactId>ninja-db</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0-beta8-SNAPSHOT</version>
+    <version>1.0.0</version>
     <url>http://www.ninjaframework.org</url>
     <name>${project.artifactId}</name>
     <description>Finest relational database support for Ninja Web Framework</description>
@@ -133,7 +133,7 @@
         <url>https://github.com/ninjaframework/ninja-db</url>
         <connection>scm:git://github.com/ninjaframework/ninja-db.git</connection>
         <developerConnection>scm:git:git@github.com:ninjaframework/ninja-db.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>ninja-db-1.0.0</tag>
     </scm>
 
     <issueManagement>
