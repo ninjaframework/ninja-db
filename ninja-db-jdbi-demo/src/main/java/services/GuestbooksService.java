@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2017-2018 the original author or authors.
+ * Copyright (C) 2017-2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,37 +20,38 @@ import com.google.inject.Inject;
 import java.util.List;
 import models.Guestbook;
 import ninja.jdbi.NinjaJdbi;
-import org.skife.jdbi.v2.DBI;
-import org.skife.jdbi.v2.IDBI;
-import org.skife.jdbi.v2.sqlobject.BindBean;
-import org.skife.jdbi.v2.sqlobject.SqlQuery;
-import org.skife.jdbi.v2.sqlobject.SqlUpdate;
-import org.skife.jdbi.v2.sqlobject.customizers.Mapper;
+import org.jdbi.v3.core.Jdbi;
+import org.jdbi.v3.sqlobject.customizer.BindBean;
+
+import org.jdbi.v3.sqlobject.statement.SqlQuery;
+import org.jdbi.v3.sqlobject.statement.SqlUpdate;
+import org.jdbi.v3.sqlobject.statement.UseRowMapper;
+
 
 public class GuestbooksService {
     
-    interface DbServiceInterface {  
+    public interface DbServiceInterface {  
         @SqlQuery("SELECT id, email, content FROM guestbooks")
-        @Mapper(Guestbook.GuestbookMapper.class)
+        @UseRowMapper(Guestbook.GuestbookMapper.class)
         List<Guestbook> listGuestBookEntries();
         
         @SqlUpdate("INSERT INTO guestbooks (email, content) VALUES (:email, :content)")
         void createGuestbook(@BindBean Guestbook guestbook);
     }
 
-    private final DBI dbi;
+    private final Jdbi jdbi;
             
     @Inject     
     public GuestbooksService(NinjaJdbi ninjaJdbi) {
-        this.dbi = ninjaJdbi.getDbi("default");
+        this.jdbi = ninjaJdbi.getJdbi("default");
     }
 
     public List<Guestbook> listGuestBookEntries() {
-        return dbi.open().attach(DbServiceInterface.class).listGuestBookEntries();
+        return jdbi.open().attach(DbServiceInterface.class).listGuestBookEntries();
     }
 
     public void createGuestbook(Guestbook guestbook) {
-        dbi.open().attach(DbServiceInterface.class).createGuestbook(guestbook);
+        jdbi.open().attach(DbServiceInterface.class).createGuestbook(guestbook);
     }
     
 }

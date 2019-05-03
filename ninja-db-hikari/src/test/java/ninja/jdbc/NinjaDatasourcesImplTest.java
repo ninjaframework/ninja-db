@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2017-2018 the original author or authors.
+ * Copyright (C) 2017-2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,12 +19,12 @@ package ninja.jdbc;
 import com.google.common.collect.Lists;
 import java.util.List;
 import javax.sql.DataSource;
-import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
-import static org.hamcrest.MatcherAssert.assertThat;
+
+import static org.assertj.core.api.Assertions.*;
 
 
 @RunWith(MockitoJUnitRunner.class)
@@ -43,8 +43,8 @@ public class NinjaDatasourcesImplTest {
         
         List<NinjaDatasource> result = ninjaDatasources.getDatasources();
         
-        assertThat(result, CoreMatchers.hasItem(ninjaDatasource1));
-        assertThat(result, CoreMatchers.hasItem(ninjaDatasource2));
+        assertThat(result).contains(ninjaDatasource1);
+        assertThat(result).contains(ninjaDatasource2);
     }
     
     @Test
@@ -57,7 +57,7 @@ public class NinjaDatasourcesImplTest {
         
         NinjaDatasource result = ninjaDatasources.getDatasource("datasource2");
         
-        assertThat(result, CoreMatchers.is(ninjaDatasource2));
+        assertThat(result).isEqualTo(ninjaDatasource2);
     }
     
     @Test(expected = RuntimeException.class)

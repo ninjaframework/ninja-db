@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2017-2018 the original author or authors.
+ * Copyright (C) 2017-2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,30 +18,31 @@ package ninja.jdbi;
 
 import com.google.common.collect.ImmutableMap;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import ninja.jdbc.NinjaDatasource;
 import ninja.jdbc.NinjaDatasources;
-import org.skife.jdbi.v2.DBI;
+import org.jdbi.v3.core.Jdbi;
+import org.jdbi.v3.sqlobject.SqlObjectPlugin;
 
 public class NinjaJdbiImpl implements NinjaJdbi {
 
-    final Map<String, DBI> nameToDBIMap;
+    final Map<String, Jdbi> nameToDBIMap;
 
     public NinjaJdbiImpl(NinjaDatasources ninjaDatasources) {
 
-        Map<String, DBI> map = new HashMap<>();
+        Map<String, Jdbi> map = new HashMap<>();
 
         for (NinjaDatasource ninjaDatasource : ninjaDatasources.getDatasources()) {
-            DBI dbi = new DBI(ninjaDatasource.getDataSource());
-            map.put(ninjaDatasource.getName(), dbi);
+            Jdbi jdbi = Jdbi.create(ninjaDatasource.getDataSource());
+            jdbi.installPlugin(new SqlObjectPlugin());
+            map.put(ninjaDatasource.getName(), jdbi);
         }
 
         this.nameToDBIMap = ImmutableMap.copyOf(map);
     }
 
     @Override
-    public DBI getDbi(String datasourceName) {
+    public Jdbi getJdbi(String datasourceName) {
         return nameToDBIMap.get(datasourceName);
     }
 

@@ -29,26 +29,22 @@
     </parent>
 
     <dependencies>
-        
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
-            <version>5.0.7</version>
+            <version>5.2.4</version>
         </dependency>
-
         <dependency>
             <groupId>org.ninjaframework</groupId>
             <artifactId>ninja-db-core</artifactId>
             <version>1.0.1-SNAPSHOT</version>
         </dependency>
-        
         <dependency>
             <groupId>org.ninjaframework</groupId>
             <artifactId>ninja-core</artifactId>
             <version>${ninja.version}</version>
             <scope>provided</scope>
         </dependency>
-        
     </dependencies>
 
 </project>

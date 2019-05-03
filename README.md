@@ -18,11 +18,7 @@ It is based on three building blocks:
 
 - Migration support via the popular flyway library
 - Fast jdbc access via Hikari connection pool
-- Support for many jdbc libraries like jdbi, eban and many more
-
-TODO:
-=====
-- Add more databae access layers like ebean, jpa...
+- Support for many jdbc libraries like jdbi and many more
 
 
 Quickstart with JDBI
@@ -49,7 +45,7 @@ Add the following dependencies for migrations and access via jdbi.
 &lt;dependency&gt;
     &lt;groupId&gt;com.h2database&lt;/groupId&gt;
     &lt;artifactId&gt;h2&lt;/artifactId&gt;
-    &lt;version&gt;1.3.175&lt;/version&gt;
+    &lt;version&gt;1.4.199&lt;/version&gt;
 &lt;/dependency&gt;
 </pre>
 
@@ -91,32 +87,46 @@ be injected into your controller.
 The service:
 
 <pre>
+import com.google.inject.Inject;
+import java.util.List;
+import models.Guestbook;
+import ninja.jdbi.NinjaJdbi;
+import org.jdbi.v3.core.Jdbi;
+import org.jdbi.v3.sqlobject.customizer.BindBean;
+
+import org.jdbi.v3.sqlobject.statement.SqlQuery;
+import org.jdbi.v3.sqlobject.statement.SqlUpdate;
+import org.jdbi.v3.sqlobject.statement.UseRowMapper;
+
+
 public class GuestbooksService {
     
-    interface DbServiceInterface {  
+    public interface DbServiceInterface {  
         @SqlQuery(&quot;SELECT id, email, content FROM guestbooks&quot;)
-        @Mapper(Guestbook.GuestbookMapper.class)
+        @UseRowMapper(Guestbook.GuestbookMapper.class)
         List&lt;Guestbook&gt; listGuestBookEntries();
         
         @SqlUpdate(&quot;INSERT INTO guestbooks (email, content) VALUES (:email, :content)&quot;)
         void createGuestbook(@BindBean Guestbook guestbook);
     }
 
-    private final DBI dbi;
+    private final Jdbi jdbi;
             
     @Inject     
     public GuestbooksService(NinjaJdbi ninjaJdbi) {
-        this.dbi = ninjaJdbi.getDbi(&quot;default&quot;);
+        this.jdbi = ninjaJdbi.getJdbi(&quot;default&quot;);
     }
 
     public List&lt;Guestbook&gt; listGuestBookEntries() {
-        return dbi.open().attach(DbServiceInterface.class).listGuestBookEntries();
+        return jdbi.open().attach(DbServiceInterface.class).listGuestBookEntries();
     }
 
     public void createGuestbook(Guestbook guestbook) {
-        dbi.open().attach(DbServiceInterface.class).createGuestbook(guestbook);
+        jdbi.open().attach(DbServiceInterface.class).createGuestbook(guestbook);
     }
+    
 }
+
 </pre>
 
 and the Controller then'd look like:

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2017-2018 the original author or authors.
+ * Copyright (C) 2017-2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,11 +17,11 @@
 
 package ninja.jdbi;
 
-import org.skife.jdbi.v2.DBI;
+import org.jdbi.v3.core.Jdbi;
 
 
 public interface NinjaJdbi {
     
-    DBI getDbi(String datasourceName);
+    public Jdbi getJdbi(String datasourceName);
 
 }

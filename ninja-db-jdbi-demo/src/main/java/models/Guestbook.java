@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2017-2018 the original author or authors.
+ * Copyright (C) 2017-2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,8 +24,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Version;
-import org.skife.jdbi.v2.StatementContext;
-import org.skife.jdbi.v2.tweak.ResultSetMapper;
+import org.jdbi.v3.core.mapper.RowMapper;
+import org.jdbi.v3.core.statement.StatementContext;
 
 public class Guestbook {
 
@@ -59,9 +59,10 @@ public class Guestbook {
         this.content = content;
     }
 
-    public static class GuestbookMapper implements ResultSetMapper<Guestbook> {
+    public static class GuestbookMapper implements RowMapper<Guestbook> {
 
-        public Guestbook map(int index, ResultSet r, StatementContext ctx) throws SQLException {
+        @Override
+        public Guestbook map(ResultSet r, StatementContext ctx) throws SQLException {
             return new Guestbook(r.getInt("id"), r.getString("email"), r.getString("content"));
         }
     }

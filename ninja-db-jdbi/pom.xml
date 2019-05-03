@@ -27,15 +27,25 @@
         <artifactId>ninja-db</artifactId>
         <version>1.0.1-SNAPSHOT</version>
     </parent>
+    
+    <properties>
+        <jdbi.version>3.8.0</jdbi.version>
+    </properties>
 
     <dependencies>
         
         <dependency>
             <groupId>org.jdbi</groupId>
-            <artifactId>jdbi</artifactId>
-            <version>2.78</version>
+            <artifactId>jdbi3-core</artifactId>
+            <version>${jdbi.version}</version>
         </dependency>
         
+         <dependency>
+            <groupId>org.jdbi</groupId>
+            <artifactId>jdbi3-sqlobject</artifactId>
+            <version>${jdbi.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>org.ninjaframework</groupId>
             <artifactId>ninja-db-hikari</artifactId>
@@ -52,8 +62,8 @@
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <version>1.4.197</version>
-            <scope>provided</scope>
+            <version>1.4.199</version>
+            <scope>test</scope>
         </dependency>
 
     </dependencies>

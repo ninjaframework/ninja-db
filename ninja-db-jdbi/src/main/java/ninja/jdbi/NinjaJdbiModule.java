@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2017-2018 the original author or authors.
+ * Copyright (C) 2017-2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,8 +30,7 @@ import java.util.Set;
 import ninja.jdbc.NinjaDatasources;
 import ninja.jdbc.NinjaDbHikariModule;
 import ninja.utils.NinjaProperties;
-import org.skife.jdbi.v2.DBI;
-import org.skife.jdbi.v2.IDBI;
+import org.jdbi.v3.core.Jdbi;
 
 
 public class NinjaJdbiModule extends AbstractModule {
@@ -42,7 +41,7 @@ public class NinjaJdbiModule extends AbstractModule {
 
     @Provides
     @Singleton
-    public NinjaJdbi provideDBI(NinjaDatasources ninjaDatasources) {
+    public NinjaJdbi provideJdbi(NinjaDatasources ninjaDatasources) {
         NinjaJdbiImpl ninjaJdbiImpl = new NinjaJdbiImpl(ninjaDatasources);
         return ninjaJdbiImpl;
     }
