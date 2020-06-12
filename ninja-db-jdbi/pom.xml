@@ -29,7 +29,7 @@
     </parent>
     
     <properties>
-        <jdbi.version>3.8.0</jdbi.version>
+        <jdbi.version>3.13.0</jdbi.version>
     </properties>
 
     <dependencies>
