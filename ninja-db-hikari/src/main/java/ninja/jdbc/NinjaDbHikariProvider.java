@@ -22,6 +22,8 @@ import com.google.inject.Singleton;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 import java.util.stream.Collectors;
 
 public class NinjaDbHikariProvider implements Provider<NinjaDatasources> {
@@ -40,12 +42,14 @@ public class NinjaDbHikariProvider implements Provider<NinjaDatasources> {
         List<NinjaDatasource> ninjaDatasources
                 = ninjaDatasourceConfigs.getDatasources().stream().map(ninjaDatasourceConfig -> {
 
-                    HikariConfig config = new HikariConfig();
+                    Properties properties = extractHikariProperties(ninjaDatasourceConfig.getProperties());
+                    HikariConfig config = new HikariConfig(properties);
 
                     config.setDriverClassName(ninjaDatasourceConfig.getDriver());
                     config.setJdbcUrl(ninjaDatasourceConfig.getJdbcUrl());
                     config.setUsername(ninjaDatasourceConfig.getUsername());
                     config.setPassword(ninjaDatasourceConfig.getPassword());
+                    
 
                     HikariDataSource dataSource = new HikariDataSource(config);
 
@@ -59,6 +63,26 @@ public class NinjaDbHikariProvider implements Provider<NinjaDatasources> {
 
         return new NinjaDatasourcesImpl(ninjaDatasources);
 
+    }
+    
+    // See all supported properties here: https://github.com/brettwooldridge/HikariCP
+    private Properties extractHikariProperties(Map<String, String> allPropertiesOfThisDatasource) {
+        
+        Properties properties = new Properties();
+        allPropertiesOfThisDatasource.forEach((key, value) -> {
+            
+            if (key.startsWith("hikari.")) {
+            
+                String newKey = key.split("hikari.")[1];
+                properties.put(newKey, value);
+            
+            }
+
+        });
+        
+        
+        return properties;
+    
     }
 
 }

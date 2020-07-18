@@ -16,7 +16,9 @@
 
 package ninja.jdbc;
 
+import java.util.Map;
 import java.util.Optional;
+import java.util.Properties;
 
 public class NinjaDatasourceConfig {
 
@@ -29,19 +31,26 @@ public class NinjaDatasourceConfig {
     
     private final Optional<MigrationConfiguration> migrationConfiguration;
     
+    // All properties under this namespace.
+    // For instance application.datasource.my_datasource.hikari.maxConnections
+    // This is useful to initialize other datasources...
+    private final Map<String, String> properties;
+    
     public NinjaDatasourceConfig(
             String name, 
             String driver, 
             String jdbcUrl, 
             String username, 
             String password, 
-            Optional<MigrationConfiguration> migrationConfiguration) {
+            Optional<MigrationConfiguration> migrationConfiguration,
+            Map<String, String> properties) {
 
         this.name = name;
         this.driver = driver;
         this.jdbcUrl = jdbcUrl;
         this.username = username;
         this.password = password;
+        this.properties = properties;
         
         this.migrationConfiguration = migrationConfiguration;
     }
@@ -68,6 +77,10 @@ public class NinjaDatasourceConfig {
     
     public Optional<MigrationConfiguration> getMigrationConguration() {
         return this.migrationConfiguration;
+    }
+    
+    public Map<String, String> getProperties() {
+        return this.properties;
     }
 
     public static class MigrationConfiguration {

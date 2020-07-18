@@ -20,6 +20,7 @@ import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -83,13 +84,16 @@ public class NinjaDatasourceConfigProvider implements Provider<NinjaDatasourceCo
 
             Optional<NinjaDatasourceConfig.MigrationConfiguration> migrationConfiguration = determineMigrationConfguration(datasourceName, username, password);
 
+            Map<String, String> allProperties = getAllPropertiesOfThisDatasource(datasourceName, properties);
+                    
             NinjaDatasourceConfig ninjaDatasource = new NinjaDatasourceConfig(
                     name,
                     driver,
                     jdbcUrl,
                     username,
                     password,
-                    migrationConfiguration
+                    migrationConfiguration,
+                    allProperties
             );
             ninjaDatasources.add(ninjaDatasource);
         }
@@ -113,6 +117,23 @@ public class NinjaDatasourceConfigProvider implements Provider<NinjaDatasourceCo
         }
         
         return migrationConfiguration;
+    }
+    
+    
+    private Map<String, String> getAllPropertiesOfThisDatasource(String datasourceName, Properties properties) {
+        
+        Map<String, String> theseProperties = new HashMap();
+        
+        properties.entrySet().forEach(entry -> {
+            String key = (String) entry.getKey();
+            if (key.startsWith(DATASOURCE_PREFIX + "." + datasourceName)) {
+                String keyWithoutDatasourceNamePrefix = key.split(DATASOURCE_PREFIX + "." + datasourceName + ".")[1];
+                
+                theseProperties.put(keyWithoutDatasourceNamePrefix, (String) entry.getValue());
+            }
+        });
+        
+        return theseProperties;
     }
 
 }

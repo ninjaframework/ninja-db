@@ -76,6 +76,14 @@ application.datasource.default.password=
 application.datasource.default.migration.enabled=true
 application.datasource.default.migration.username=sa
 application.datasource.default.migration.password=
+
+# Hikari can be configured on each datasource
+# Parameters are extracted and provided to hikari
+# Please refer to the hikari config for all parameters 
+# https://github.com/brettwooldridge/HikariCP
+application.datasource.default.hikari.idleTimeout=10000
+application.datasource.default.hikari.maxLifetime=10000
+application.datasource.default.hikari.maximumPoolSize=10
 </pre>
 
 
