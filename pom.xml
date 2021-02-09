@@ -30,8 +30,8 @@
     <developers>
         <developer>
             <name>Raphael A. Bauer</name>
-            <email>ra@raphaelbauer.com</email>
-            <url>http://www.raphaelbauer.com</url>
+            <email>raphael.bauer@raphaelbauer.com</email>
+            <url>https://www.raphaelbauer.com</url>
             <roles>
                 <role>Lead Architect</role>
             </roles>
@@ -179,7 +179,7 @@
                     <plugin>
                         <groupId>com.mycila.maven-license-plugin</groupId>
                         <artifactId>maven-license-plugin</artifactId>
-                        <version>1.6.0</version>
+                        <version>1.9.0</version>
                         <configuration>
                             <quiet>false</quiet>
                             <header>src/main/resources/license-header.txt</header>
@@ -220,7 +220,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-source-plugin</artifactId>
-                        <version>2.2.1</version>
+                        <version>3.2.1</version>
                         <executions>
                             <execution>
                                 <id>attach-sources</id>
@@ -233,7 +233,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>2.9.1</version>
+                        <version>3.2.0</version>
                         <executions>
                             <execution>
                                 <id>attach-javadocs</id>
@@ -246,10 +246,10 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.5</version>
+                        <version>1.6</version>
                         <executions>
-                            <execution>
-                                <id>sign-artifacts</id>
+                            <execution> 
+                               <id>sign-artifacts</id>
                                 <phase>verify</phase>
                                 <goals>
                                     <goal>sign</goal>
