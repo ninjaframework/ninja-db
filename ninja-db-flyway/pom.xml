@@ -1,6 +1,6 @@
 <!--
 
-    Copyright (C) 2017-2018 the original author or authors.
+    Copyright (C) the original author or authors.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -32,7 +32,7 @@
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
-            <version>5.2.4</version>
+            <version>7.5.2</version>
         </dependency>
         <dependency>
             <groupId>org.ninjaframework</groupId>

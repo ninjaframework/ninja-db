@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2017-2019 the original author or authors.
+ * Copyright (C) the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,9 +28,10 @@ public class NinjaFlywayMigrator {
 
         for (NinjaDatasourceConfig datasourceConfig : ninjaDatasourceConfigs.getDatasources()) {
             datasourceConfig.getMigrationConguration().ifPresent(migrationConfiguration -> {
-                Flyway flyway = new Flyway();
-                flyway.setDataSource(datasourceConfig.getJdbcUrl(), migrationConfiguration.getMigrationUsername(), migrationConfiguration.getMigrationPassword());
-                flyway.setLocations("classpath:migrations/" + datasourceConfig.getName() + "/");
+                Flyway flyway = Flyway.configure()
+                        .dataSource(datasourceConfig.getJdbcUrl(), migrationConfiguration.getMigrationUsername(), migrationConfiguration.getMigrationPassword())
+                        .locations("classpath:migrations/" + datasourceConfig.getName() + "/")
+                        .load();
                 flyway.migrate();
             });
         }

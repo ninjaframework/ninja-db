@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2017-2019 the original author or authors.
+ * Copyright (C) the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,6 @@ package ninja.jdbc;
 import com.google.common.collect.Lists;
 import java.util.List;
 import javax.sql.DataSource;
-import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -35,41 +34,51 @@ public class NinjaDatasourcesImplTest {
 
     @Test
     public void testGetDatasources() {
+        // given
         DataSource dataSource1 = Mockito.mock(DataSource.class);
         NinjaDatasource ninjaDatasource1 = new NinjaDatasource("datasource1", dataSource1);
         DataSource dataSource2 = Mockito.mock(DataSource.class);
         NinjaDatasource ninjaDatasource2 = new NinjaDatasource("datasource1", dataSource2);
         NinjaDatasources ninjaDatasources = new NinjaDatasourcesImpl(Lists.newArrayList(ninjaDatasource1, ninjaDatasource2));
         
+        // when
         List<NinjaDatasource> result = ninjaDatasources.getDatasources();
         
+        // then
         assertThat(result).contains(ninjaDatasource1);
         assertThat(result).contains(ninjaDatasource2);
     }
     
     @Test
     public void testGetDatasource_withExistingDatasource() {
+        // given
         DataSource dataSource1 = Mockito.mock(DataSource.class);
         NinjaDatasource ninjaDatasource1 = new NinjaDatasource("datasource1", dataSource1);
         DataSource dataSource2 = Mockito.mock(DataSource.class);
         NinjaDatasource ninjaDatasource2 = new NinjaDatasource("datasource2", dataSource2);
         NinjaDatasources ninjaDatasources = new NinjaDatasourcesImpl(Lists.newArrayList(ninjaDatasource1, ninjaDatasource2));
         
+        // when
         NinjaDatasource result = ninjaDatasources.getDatasource("datasource2");
         
+        // then
         assertThat(result).isEqualTo(ninjaDatasource2);
     }
     
-    @Test(expected = RuntimeException.class)
+    @Test
     public void testGetDatasource_throwsExceptionWhenDatasourceDoesNotExist() {
+        // given
         DataSource dataSource1 = Mockito.mock(DataSource.class);
         NinjaDatasource ninjaDatasource1 = new NinjaDatasource("datasource1", dataSource1);
         DataSource dataSource2 = Mockito.mock(DataSource.class);
         NinjaDatasource ninjaDatasource2 = new NinjaDatasource("datasource2", dataSource2);
         NinjaDatasources ninjaDatasources = new NinjaDatasourcesImpl(Lists.newArrayList(ninjaDatasource1, ninjaDatasource2));
         
-        // we expect an exception here:
-        NinjaDatasource result = ninjaDatasources.getDatasource("datasource3");
+        // when
+        Throwable throwable = catchThrowable(() -> ninjaDatasources.getDatasource("datasource3"));
+        
+        // then
+        assertThat(throwable).isInstanceOf(RuntimeException.class);
     }
     
 }

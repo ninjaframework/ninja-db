@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2017-2019 the original author or authors.
+ * Copyright (C) the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 
 package ninja.jdbc;
 
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -133,7 +134,7 @@ public class NinjaDatasourceConfigProvider implements Provider<NinjaDatasourceCo
             }
         });
         
-        return theseProperties;
+        return ImmutableMap.copyOf(theseProperties);
     }
 
 }
