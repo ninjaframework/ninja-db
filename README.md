@@ -20,6 +20,11 @@ It is based on three building blocks:
 - Fast jdbc access via Hikari connection pool
 - Support for many jdbc libraries like jdbi and many more
 
+**Note:**
+Ninja-db is designed to be extensible. Currently we only support jdbi. But
+it is straight forward to add JPA, ebean or any other relational access
+framework. PRs welcome!
+
 
 Quickstart with JDBI
 ====================
