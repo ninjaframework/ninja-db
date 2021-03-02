@@ -25,10 +25,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.stream.Collectors;
+import ninja.lifecycle.Dispose;
 
 public class NinjaDbHikariProvider implements Provider<NinjaDatasources> {
 
     private final NinjaDatasourceConfigs ninjaDatasourceConfigs;
+    private List<NinjaDatasource> ninjaDatasources;
 
     @Inject
     public NinjaDbHikariProvider(NinjaDatasourceConfigs ninjaDatasourceConfigs) {
@@ -51,15 +53,17 @@ public class NinjaDbHikariProvider implements Provider<NinjaDatasources> {
                     config.setPassword(ninjaDatasourceConfig.getPassword());
                     
 
-                    HikariDataSource dataSource = new HikariDataSource(config);
+                    HikariDataSource hikariDataSource = new HikariDataSource(config); 
 
                     NinjaDatasource ninjaDatasource = new NinjaDatasource(
                             ninjaDatasourceConfig.getName(),
-                            dataSource);
+                            hikariDataSource);
 
                     return ninjaDatasource;
 
                 }).collect(Collectors.toList());
+        
+        this.ninjaDatasources = ninjaDatasources;
 
         return new NinjaDatasourcesImpl(ninjaDatasources);
 
@@ -83,6 +87,14 @@ public class NinjaDbHikariProvider implements Provider<NinjaDatasources> {
         
         return properties;
     
+    }
+    
+    @Dispose
+    public void shutdown() {
+        for (NinjaDatasource ninjaDatasource : ninjaDatasources) {
+            HikariDataSource hikariDataSource = (HikariDataSource) ninjaDatasource.getDataSource();
+            hikariDataSource.close();
+        }
     }
 
 }
